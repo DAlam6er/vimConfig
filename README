@@ -1,0 +1,2 @@
+Create ~/.vimrc and put there the following string: 
+runtime vimrc
