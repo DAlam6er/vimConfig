@@ -29,6 +29,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'preservim/vim-markdown'
     Plug 'tpope/vim-fugitive'
     Plug 'https://github.com/airblade/vim-gitgutter.git'
+    Plug 'tpope/vim-surround'
 call plug#end()
 
 " Рабочая директория vim
