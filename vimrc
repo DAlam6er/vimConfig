@@ -41,6 +41,9 @@ set ttymouse=
 " убирает -- INSERT --
 set noshowmode
 
+" Добавить выделение текущей строки
+set cursorline
+
 " Замена табов на пробелы. Влияет на отступы, добавляемые командами >> и <<
 set expandtab 
 
@@ -106,6 +109,18 @@ highlight lCursor guifg=NONE guibg=Cyan
 :set spellfile=~/.vim/spell/en.utf-8.add
 :set nospell
 
+"... для изменения курсора в разных режимах используйте это:
+" где 1 - это мигающий прямоугольник
+"     2 - обычный прямоугольник
+"     3 - мигающее подчёркивание
+"     4 - просто подчёркивание
+"     5 - мигающая вертикальная черта
+"     6 - просто вертикальная черта
+set ttimeoutlen=10 "Понижаем задержку ввода escape последовательностей
+let &t_SI.="\e[5 q" "SI = режим вставки
+let &t_SR.="\e[3 q" "SR = режим замены
+let &t_EI.="\e[2 q" "EI = нормальный режим
+
 " set width 75 symbols
 if exists('+colorcolumn')
     highlight ColorColumn ctermbg=235 guibg=#2c2d27
@@ -121,11 +136,14 @@ set wildmode=longest:list,full
 " y and d put stuff into system clipboard (so that other apps can see it) also, p works nicely.
 set clipboard^=unnamed,unnamedplus
 
-"   Using tmuxline stock preset
+" Using tmuxline stock preset
 let g:tmuxline_preset = 'full'
 
-"   Highlighting mistakes in VIM
+" Highlighting mistakes in VIM
 let g:gruvbox_guisp_fallback = "bg"
+" Включить поддержку unicode
+let g:Powerline_symbols='unicode' "Поддержка unicode
+
 
 " -------------------------------------------------------------------------
 " vim-airline plugin settings
@@ -137,7 +155,7 @@ let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
 
 " vim-airline extensions need to be load
-let g:airline_extensions = ['branch', 'tmuxline', 'hunks']
+let g:airline_extensions = ['branch', 'tmuxline', 'hunks', 'tabline', 'keymap']
 
 " Отображаемый текст в случае, если ветка не найдена
 let g:airline#extensions#branch#empty_message = ''
@@ -149,11 +167,16 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = ' '
-
 " Как пути к файлам отображаются на каждой отдельной вкладке, 
 " а также индикатор текущего буфера в правом верхнем углу.
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#tab_min_count = 2
+"let g:airline#extensions#tabline#buffer_min_count = 2
+
+" Не показывать текущий маппинг: 
+" скроет его индикатор из строки статуса (аналог останется в строке команд)
+let g:airline#extensions#keymap#enabled = 0
 
 "let g:airline_section_a = airline#section#create(['mode',' ','branch'])
 "let g:airline_section_b = '%{strftime("%Y-%m-%d %H-%M")}'
@@ -161,5 +184,3 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "let g:airline_section_c = airline#section#create(['filetype'])
 let g:airline_detect_spell=0
 let g:airline_detect_spelllang=0
-let g:airline#extensions#tabline#tab_min_count = 2
-"let g:airline#extensions#tabline#buffer_min_count = 2
