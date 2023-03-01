@@ -13,7 +13,7 @@ set encoding=utf8
 " vim-plug plugin manager
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -28,6 +28,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'iamcco/markdown-preview.nvim'
     Plug 'preservim/vim-markdown'
     Plug 'tpope/vim-fugitive'
+    Plug 'https://github.com/airblade/vim-gitgutter.git'
 call plug#end()
 
 " Рабочая директория vim
@@ -105,50 +106,6 @@ highlight lCursor guifg=NONE guibg=Cyan
 :set spellfile=~/.vim/spell/en.utf-8.add
 :set nospell
 
-"   Using specific airline theme
-let g:airline_theme='papercolor'
-
-" Включить поддержку Powerline шрифтов
-let g:airline_powerline_fonts = 1
-
-"   Set vim font to a Nerd Font
-set guifont=Hack\ Nerd\ Font\ Mono\ 16
-
-"   Using tmuxline stock preset
-let g:tmuxline_preset = 'full'
-
-"   Highlighting mistakes in VIM
-let g:gruvbox_guisp_fallback = "bg"
-
-" -------------------------------------------------------------------------
-" vim-airline plugin settings
-" -------------------------------------------------------------------------
-" *airline-branch* extension
-let g:airline#extensions#branch#enabled = 1
-" Отображаемый текст в случае, если ветка не найдена
-let g:airline#extensions#branch#empty_message = 'branch not found'
-
-" Автоматически отображает все буферы, когда открыта только одна вкладка.
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
-
-" Как пути к файлам отображаются на каждой отдельной вкладке, 
-" а также индикатор текущего буфера в правом верхнем углу.
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-
-let g:airline_section_a = airline#section#create(['mode',' ','branch'])
-let g:airline_section_b = '%{strftime("%Y-%m-%d %H-%M")}'
-"let g:airline_section_b = airline#section#create_left(['ffenc','hunks','%f'])
-let g:airline_section_c = airline#section#create(['filetype'])
-let g:airline_detect_spell=0
-let g:airline_detect_spelllang=0
-let g:airline#extensions#tabline#tab_min_count = 2
-"let g:airline#extensions#tabline#buffer_min_count = 2
-
 " set width 75 symbols
 if exists('+colorcolumn')
     highlight ColorColumn ctermbg=235 guibg=#2c2d27
@@ -160,6 +117,49 @@ else
 end
 
 set wildmenu
-set wildmode=longest,list,full
+set wildmode=longest:list,full
 " y and d put stuff into system clipboard (so that other apps can see it) also, p works nicely.
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
+
+"   Using tmuxline stock preset
+let g:tmuxline_preset = 'full'
+
+"   Highlighting mistakes in VIM
+let g:gruvbox_guisp_fallback = "bg"
+
+" -------------------------------------------------------------------------
+" vim-airline plugin settings
+" -------------------------------------------------------------------------
+"   Using specific airline theme
+let g:airline_theme='papercolor'
+
+" Включить поддержку Powerline шрифтов
+let g:airline_powerline_fonts = 1
+
+" vim-airline extensions need to be load
+let g:airline_extensions = ['branch', 'tmuxline', 'hunks']
+
+" Отображаемый текст в случае, если ветка не найдена
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
+
+" Автоматически отображает все буферы, когда открыта только одна вкладка.
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = ' '
+
+" Как пути к файлам отображаются на каждой отдельной вкладке, 
+" а также индикатор текущего буфера в правом верхнем углу.
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+"let g:airline_section_a = airline#section#create(['mode',' ','branch'])
+"let g:airline_section_b = '%{strftime("%Y-%m-%d %H-%M")}'
+"let g:airline_section_b = airline#section#create_left(['ffenc','hunks','%f'])
+"let g:airline_section_c = airline#section#create(['filetype'])
+let g:airline_detect_spell=0
+let g:airline_detect_spelllang=0
+let g:airline#extensions#tabline#tab_min_count = 2
+"let g:airline#extensions#tabline#buffer_min_count = 2
