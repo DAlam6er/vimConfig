@@ -17,6 +17,18 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" -------------------------------------------------------------------------
+"  Маппинг клавиш
+" -------------------------------------------------------------------------
+" Отключить клавиши перемещения по стрелкам
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" Выход в нормальный режим вместо Esc
+imap jj <Esc>
+
 " Начать искать плагины в этой директории
 call plug#begin('~/.vim/bundle')
     Plug 'rafi/awesome-vim-colorschemes'
