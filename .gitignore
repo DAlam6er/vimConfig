@@ -3,4 +3,4 @@ bundle/*
 !bundle/README
 spell/*.add
 spell/*.add.spl
-.swp
+*.swp
